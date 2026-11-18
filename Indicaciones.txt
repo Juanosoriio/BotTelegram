@@ -14,7 +14,7 @@ pip install transformers==4.30.0
 pip install python-telegram-bot==20.7
 
 # 6. Configurar token (REEMPLAZA con tu token real)
-$env:TELEGRAM_TOKEN="8708553089:AAEOatU2sbTNWoDme_Vsy-sizwpHiQDEvAU"
+$env:TELEGRAM_TOKEN="PEGA_AQUI_TU_TOKEN"
 
 # 7. Ejecutar bot
-python bot.
+python bot.py

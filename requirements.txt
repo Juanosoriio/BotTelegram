@@ -1,5 +1,5 @@
 python-telegram-bot==20.7
-pysentimiento>=0.7.3
-transformers>=4.6.1
-torch>=2.0.0
-scikit-learn
+pysentimiento==0.7.3
+transformers==5.22.2
+torch==2.15.0
+numpy==2.4.6

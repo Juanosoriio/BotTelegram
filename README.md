@@ -1,6 +1,4 @@
-Aquí tienes el `README.md` completo en formato Markdown listo para copiar y pegar:
 
-```markdown
 # 🤖 Chat Analyzer Bot
 
 **Chat Analyzer Bot** es un bot de Telegram que utiliza Inteligencia Artificial y Procesamiento de Lenguaje Natural (NLP) para analizar mensajes de texto en español. El bot detecta emociones, toxicidad, intención comunicativa, nivel de ghosting y riesgo de conflicto, **ofreciendo sugerencias sobre cómo responder** a cada mensaje.
@@ -18,7 +16,6 @@ Aquí tienes el `README.md` completo en formato Markdown listo para copiar y peg
 - [Ejemplos de Mensajes](#-ejemplos-de-mensajes)
 - [Estructura del Proyecto](#-estructura-del-proyecto)
 - [Posibles Mejoras](#-posibles-mejoras)
-- [Licencia](#-licencia)
 - [Contacto](#-contacto)
 
 ---
@@ -28,11 +25,12 @@ Aquí tienes el `README.md` completo en formato Markdown listo para copiar y peg
 | Característica | Descripción |
 |----------------|-------------|
 | 🎭 **Análisis Emocional** | Detecta 7 emociones: positivo, tristeza, enojo, sorpresa, disgusto, miedo, neutral |
-| 🚫 **Detección de Toxicidad** | Identifica lenguaje ofensivo, agresivo o dañino |
+| 🚫 **Detección de Toxicidad** | Híbrida: modelo de IA + reglas de detectar_intencion + vocabulario de insultos en español |
 | 🧠 **Clasificación de Intención** | Reconoce 12 intenciones: afecto, reclamo, celos, agresión, ruptura, manipulación, control, desinterés, inseguridad, curiosidad, tristeza, normal |
 | 💔 **Métrica de Ghosting** | Calcula probabilidad de desinterés o distanciamiento (0-95%) |
 | 🔥 **Evaluación de Riesgo** | 3 niveles: 🔴 Alto, 🟡 Medio, 🟢 Bajo |
 | 💬 **Sugerencias de Respuesta** | Te dice **cómo responder** al mensaje que recibiste |
+| ⌨️ **Comandos** | /start (presentación) y /help (instrucciones y ejemplos) |
 | 📊 **Interfaz Amigable** | Respuestas formateadas con emojis y barras de progreso |
 
 ---
@@ -43,10 +41,9 @@ Aquí tienes el `README.md` completo en formato Markdown listo para copiar y peg
 |------------|---------|-----------|
 | **Python** | 3.11+ | Lenguaje principal |
 | **pysentimiento** | 0.7.3 | NLP para español (emociones y hate speech) |
-| **Transformers** | 4.6.1+ | Modelos BERT para análisis de texto |
-| **PyTorch** | 2.0+ | Deep learning |
+| **Transformers** | 5.22.2 | Modelos BERT para análisis de texto |
+| **PyTorch** | 2.15.0 | Deep learning |
 | **python-telegram-bot** | 20.7 | Framework del bot |
-| **scikit-learn** | - | Utilidades de ML |
 
 ---
 
@@ -58,7 +55,7 @@ Aquí tienes el `README.md` completo en formato Markdown listo para copiar y peg
 
 ```bash
 git clone https://github.com/rubisabel00/machine-learning-Bot-telegram.git
-cd chat-analyzer-bot
+cd machine-learning-Bot-telegram
 ```
 
 ### 2. Crear entorno virtual (recomendado)
@@ -82,10 +79,10 @@ pip install -r requirements.txt
 **`requirements.txt`:**
 ```txt
 python-telegram-bot==20.7
-pysentimiento>=0.7.3
-transformers>=4.6.1
-torch>=2.0.0
-scikit-learn
+pysentimiento==0.7.3
+transformers==5.22.2
+torch==2.15.0
+numpy==2.4.6
 ```
 
 ---
@@ -128,7 +125,6 @@ Verás algo como:
 🔄 Cargando modelos de pysentimiento...
 ✅ Modelos cargados correctamente
 🤖 Bot de análisis de mensajes activo...
-📝 Token configurado: ✅ Sí
 🟢 Bot corriendo... Esperando mensajes
 ```
 
@@ -179,18 +175,15 @@ Está expresando cariño y buenos sentimientos. Quiere acercarse y fortalecer el
 ## 📁 Estructura del Proyecto
 
 ```
-chat-analyzer-bot/
+machine-learning-Bot-telegram/
 │
 ├── bot.py                 # Código principal del bot de Telegram
 ├── predict.py             # Motor de análisis con IA y reglas
 ├── requirements.txt       # Dependencias del proyecto
 ├── README.md              # Documentación
 │
-└── models/                # (Opcional) Modelos entrenados personalizados
-    ├── modelo_emociones.pkl
-    ├── modelo_toxicidad.pkl
-    ├── modelo_intencion.pkl
-    └── vectorizer.pkl
+├── pruebas.py             # Pruebas de detectar_intencion sin modelos de IA
+└── CAMBIOS.md             # Registro de cambios y mejoras realizadas
 ```
 
 ---
@@ -217,12 +210,6 @@ Las contribuciones son bienvenidas. Por favor:
 3. Commit tus cambios (`git commit -m 'Agrega nueva funcionalidad'`)
 4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
 5. Abre un Pull Request
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia MIT. Ver el archivo `LICENSE` para más detalles.
 
 ---
 
@@ -260,4 +247,22 @@ Este proyecto está bajo la licencia MIT. Ver el archivo `LICENSE` para más det
 ---
 
 **¡Disfruta analizando y mejorando tus conversaciones! 🚀**
+
+---
+
+## 🛠️ Mejoras realizadas
+
+Consulta el archivo `CAMBIOS.md` para el detalle de las mejoras aplicadas al bot (reglas de intención, comandos /start y /help, pruebas, documentación y portabilidad).
+
+---
+
+## 🧪 Pruebas
+
+Ejecuta `pruebas.py` sin instalar los modelos de IA (usa un módulo falso de `pysentimiento`):
+
+```powershell
+$env:PYTHONUTF8="1"
+& "C:\venvs\bot\Scripts\python.exe" pruebas.py
 ```
+
+El script compara la versión actual de `detectar_intencion` contra la de la rama `main` y muestra una tabla de resultados.
