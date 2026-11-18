@@ -1,7 +1,7 @@
 import os
 import random
 from telegram import Update
-from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
+from telegram.ext import ApplicationBuilder, MessageHandler, CommandHandler, filters, ContextTypes
 
 from predict import analizar_texto
 
@@ -193,6 +193,27 @@ def formatear_respuesta(datos: dict) -> str:
         f"💬 *Cómo responder:*\n{datos['sugerencia']}"
     )
 
+# ─── Comandos ─────────────────────────────────────────────
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Responde al comando /start con un saludo y explica qué hace el bot."""
+    await update.message.reply_text(
+        "Hola 👋 Soy un bot que analiza los mensajes que TE ENVÍAN y te dice cómo responder.\n\n"
+        "Detecto la emoción, toxicidad, intención, nivel de riesgo y ghosting, y te sugiero una respuesta adecuada.\n\n"
+        "Envía cualquier mensaje y lo analizo por ti. Usa /help para ver ejemplos."
+    )
+
+
+async def ayuda(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Responde al comando /help con instrucciones de uso y ejemplos."""
+    await update.message.reply_text(
+        "¿Cómo usarlo? Pega aquí el mensaje que recibiste y el bot lo analizará.\n\n"
+        "Ejemplos de mensajes para analizar:\n"
+        "• por qué no me respondes\n"
+        "• te quiero mucho\n\n"
+        "Usa /start para ver la presentación del bot."
+    )
+
 # ─── Handler principal ──────────────────────────────────
 
 async def responder(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -228,6 +249,8 @@ def main():
     print("📌 Analizo los mensajes que TE ENVÍAN y te digo cómo responder")
     
     app = ApplicationBuilder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", ayuda))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, responder))
     
     print("🟢 Bot corriendo... Esperando mensajes")
